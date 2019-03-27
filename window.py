@@ -8,6 +8,7 @@ class Block(turtle.Turtle):
         turtle.Turtle.__init__(self)
         self.shape("square")
         self.color("white")
+        self.shapesize(0.5)
         self.penup()
         self.speed(0)
 
@@ -17,6 +18,7 @@ class Player(turtle.Turtle):
         turtle.Turtle.__init__(self)
         self.shape("square")
         self.color("blue")
+        self.shapesize(0.5)
         self.penup()
         self.x, self.y = x, y
         self.speed(0)
@@ -36,20 +38,24 @@ class Trail(turtle.Turtle):
 wn = turtle.Screen()
 wn.bgcolor("black")
 wn.title("Stima Maze")
-wn.setup(700, 700)
+wn.setup(1000, 1000)
+
+
+def pos_to_sc(x, y):
+    return (-432 + (x*12), 312 - (y*12))
 
 
 def draw_maze(maze):
-    block = Block()
+    b = Block()
+    p = Player(0, 11)
+    p.goto(pos_to_sc(0, 11))
     for y in range(len(maze)):
         for x in range(len(maze[y])):
-            sc_x, sc_y = -288 + (x*24), 288 - (y*24)
             if maze[y][x] == "1":
-                block.goto(sc_x, sc_y)
-                block.stamp()
+                b.goto(pos_to_sc(x, y))
+                b.stamp()
 
 
-player = Player(0, 1)
 draw_maze(maze)
 
 
