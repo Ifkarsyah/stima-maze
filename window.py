@@ -1,5 +1,6 @@
 import turtle
 import astar
+import bfs
 from utils import maze
 
 
@@ -50,7 +51,8 @@ def draw_maze(maze, pathway):
 
 # SAMPLE SOLUTION = LIST OF POS WHERE PLAYER TRAVEL
 path_astar = [(y, x) for (x, y) in astar.jalurAStar]
-draw_maze(maze, path_astar)
+path_bfs = [(y, x) for (x, y) in bfs.path]
+draw_maze(maze, path_bfs)
 
 
 while True:
