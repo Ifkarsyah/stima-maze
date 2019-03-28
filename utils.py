@@ -14,7 +14,7 @@ def readMatrix(namaFile):
     return maze
 
 
-maze = readMatrix("maze_small.txt")
+maze = readMatrix('maze_extra.txt')
 
 
 def search_door(maze):
@@ -27,7 +27,5 @@ def search_door(maze):
     return sorted(set(doors))
 
 
-doors = search_door(maze)
-print(doors)
-# start, finish = search_door(maze)
-# print(start, finish)
+start, finish = search_door(maze)
+print(start, finish)

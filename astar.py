@@ -26,6 +26,7 @@ def doAStar(array, start, goal):
                 data.append(current)
                 current = came_from[current]
             data.append(start)
+            data.reverse()
             return data
 
         close_set.add(current)
@@ -50,4 +51,3 @@ def doAStar(array, start, goal):
 
 
 jalurAStar = doAStar(numpy.array(maze), start, finish)
-jalurAStar.reverse()
