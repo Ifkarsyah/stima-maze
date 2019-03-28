@@ -50,6 +50,7 @@ def draw_maze(maze, pathway):
         p.stamp()
 
 
+# SAMPLE SOLUTION = LIST OF POS WHERE PLAYER TRAVEL
 pathway = [(0, 11), (1, 11), (2, 11), (3, 11)]
 draw_maze(maze, pathway)
 
