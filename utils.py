@@ -1,6 +1,3 @@
-from pprint import pprint
-
-
 def readMatrix(namaFile):
     maze = []
     file = open(namaFile, "r")
@@ -28,4 +25,3 @@ def search_door(maze):
 
 
 start, finish = search_door(maze)
-print(start, finish)

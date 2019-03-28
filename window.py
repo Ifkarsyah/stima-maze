@@ -1,5 +1,5 @@
 import turtle
-from astar import jalurAStar
+import astar
 from utils import maze
 
 
@@ -49,7 +49,7 @@ def draw_maze(maze, pathway):
 
 
 # SAMPLE SOLUTION = LIST OF POS WHERE PLAYER TRAVEL
-path_astar = [(y, x) for (x, y) in jalurAStar]
+path_astar = [(y, x) for (x, y) in astar.jalurAStar]
 draw_maze(maze, path_astar)
 
 
