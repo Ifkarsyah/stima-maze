@@ -13,24 +13,13 @@ class Block(turtle.Turtle):
 
 
 class Player(turtle.Turtle):
-    def __init__(self, x, y):
+    def __init__(self, point):
         turtle.Turtle.__init__(self)
         self.shape("square")
         self.color("blue")
         self.shapesize(0.5)
         self.penup()
-        self.x, self.y = x, y
-        self.speed(0)
-
-
-class Trail(turtle.Turtle):
-    def __init__(self, x, y):
-        turtle.Turtle.__init__(self)
-        self.shape("circle")
-        self.shapesize(0.2, 0.2)
-        self.color("blue")
-        self.penup()
-        self.x, self.y = x, y
+        self.x, self.y = point
         self.speed(0)
 
 
@@ -47,18 +36,22 @@ def pos_to_sc(x, y):
 maze = open('maze.txt', 'r').read().splitlines()
 
 
-def draw_maze(maze):
+def draw_maze(maze, pathway):
     b = Block()
-    p = Player(0, 11)
-    p.goto(pos_to_sc(0, 11))
+    p = Player(pathway[0])
     for y in range(len(maze)):
         for x in range(len(maze[y])):
             if maze[y][x] == "1":
                 b.goto(pos_to_sc(x, y))
                 b.stamp()
+    for path in pathway:
+        x, y = path
+        p.goto(pos_to_sc(x, y))
+        p.stamp()
 
 
-draw_maze(maze)
+pathway = [(0, 11), (1, 11), (2, 11), (3, 11)]
+draw_maze(maze, pathway)
 
 
 while True:
