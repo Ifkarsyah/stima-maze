@@ -1,3 +1,6 @@
+from sys import argv
+
+
 def read_matrix(filename):  # --> matrix of int --> [[1,...],[0,1,...],...]
     with open(filename, 'r') as f:
         maze = [list(line.strip()) for line in f.readlines()]
@@ -5,7 +8,7 @@ def read_matrix(filename):  # --> matrix of int --> [[1,...],[0,1,...],...]
     return maze
 
 
-maze = read_matrix('maze_small.txt')
+maze = read_matrix(argv[1])
 rows, cols = len(maze), len(maze[0])
 
 

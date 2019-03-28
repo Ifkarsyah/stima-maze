@@ -1,4 +1,4 @@
-from utils import maze, start, finish, neighbors
+from utils import maze, neighbors
 from collections import deque
 
 
@@ -16,6 +16,3 @@ def bfs(start, finish):  # --> [(1,2), ...]
                 if visited[r][c] == 0:
                     visited[r][c] = 1
                     q.append(((r, c), path + [(r, c)]))
-
-
-path = bfs(start, finish)

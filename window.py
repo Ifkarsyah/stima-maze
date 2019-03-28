@@ -1,12 +1,12 @@
-import turtle
-import astar
-import bfs
-from utils import maze, rows, cols
+from turtle import Turtle, Screen
+from astar import jalurAStar
+from bfs import bfs
+from utils import maze, rows, cols, start, finish
 
 
-class Block(turtle.Turtle):
+class Block(Turtle):
     def __init__(self):
-        turtle.Turtle.__init__(self)
+        Turtle.__init__(self)
         self.shape("square")
         self.color("white")
         self.shapesize(0.5)
@@ -14,9 +14,9 @@ class Block(turtle.Turtle):
         self.speed(0)
 
 
-class Player(turtle.Turtle):
+class Player(Turtle):
     def __init__(self, point):
-        turtle.Turtle.__init__(self)
+        Turtle.__init__(self)
         self.shape("square")
         self.color("blue")
         self.shapesize(0.5)
@@ -25,10 +25,8 @@ class Player(turtle.Turtle):
         self.speed(0)
 
 
-wn = turtle.Screen()
-wn.bgcolor("black")
-wn.title("Stima Maze")
-wn.setup(1000, 1000)
+wn = Screen()
+wn.bgcolor("black"), wn.title("Stima Maze"), wn.setup(1000, 1000)
 
 
 def pos_to_sc(x, y):
@@ -49,11 +47,8 @@ def draw_maze(maze, pathway):
         p.stamp()
 
 
-# SAMPLE SOLUTION = LIST OF POS WHERE PLAYER TRAVEL
-path_astar = [(y, x) for (x, y) in astar.jalurAStar]
-path_bfs = [(y, x) for (x, y) in bfs.path]
+path_astar = [(y, x) for (x, y) in jalurAStar]
+path_bfs = [(y, x) for (x, y) in bfs(start, finish)]
 draw_maze(maze, path_bfs)
 
-
-while True:
-    pass
+wn.exitonclick()
