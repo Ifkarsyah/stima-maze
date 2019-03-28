@@ -1,2 +1,5 @@
-from utils import start, finish
-maze = open('maze.txt', 'r').read().splitlines()
+from utils import start, finish, maze
+
+
+def bfs(start, current, finish):
+    pass
