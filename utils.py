@@ -1,21 +1,15 @@
-def readMatrix(namaFile):
-    maze = []
-    file = open(namaFile, "r")
-    for line in file:
-        listOfInt = list(line)
-        listOfInt.pop(len(listOfInt) - 1)
-        for i in range(len(listOfInt)):
-            listOfInt[i] = int(listOfInt[i])
-        maze.append(listOfInt)
-    file.close()
+def read_matrix(filename):  # --> matrix of int --> [[1,...],[0,1,...],...]
+    with open(filename, 'r') as f:
+        maze = [list(line.strip()) for line in f.readlines()]
+        maze = [[int(c) for c in maze[r]] for r in range(len(maze))]
     return maze
 
 
-maze = readMatrix('maze_small.txt')
+maze = read_matrix('maze_small.txt')
 rows, cols = len(maze), len(maze[0])
 
 
-def search_door():
+def search_door():  # hole in the border of maze --> (1,0), (9,10)
     doors = [(0, c) for c in range(cols) if maze[0][c] == 0]
     doors += [(rows - 1, c) for c in range(cols) if maze[rows - 1][c] == 0]
     doors += [(r, 0) for r in range(rows) if maze[r][0] == 0]
@@ -23,7 +17,7 @@ def search_door():
     return sorted(set(doors))
 
 
-start, finish = search_door(maze)
+start, finish = search_door()  # hole in the border of maze --> (1,0), (9,10)
 
 
 def pos_add(a, b):  # pos_add((1,1),(1,2)) --> (2,3)

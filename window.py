@@ -1,7 +1,7 @@
 import turtle
 import astar
 import bfs
-from utils import maze
+from utils import maze, rows, cols
 
 
 class Block(turtle.Turtle):
