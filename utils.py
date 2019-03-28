@@ -1,15 +1,33 @@
-maze = open('maze.txt', 'r').read().splitlines()
+from pprint import pprint
+
+
+def readMatrix(namaFile):
+    maze = []
+    file = open(namaFile, "r")
+    for line in file:
+        listOfInt = list(line)
+        listOfInt.pop(len(listOfInt) - 1)
+        for i in range(len(listOfInt)):
+            listOfInt[i] = int(listOfInt[i])
+        maze.append(listOfInt)
+    file.close()
+    return maze
+
+
+maze = readMatrix("maze_small.txt")
 
 
 def search_door(maze):
     rows = len(maze)
     cols = len(maze[0])
-    doors = [(x, 0) for x in range(rows) if maze[0][x] == '0']
-    doors += [(x, cols-1) for x in range(rows) if maze[cols-1][x] == '0']
-    doors += [(0, y) for y in range(cols) if maze[y][0] == '0']
-    doors += [(rows-1, y) for y in range(cols) if maze[y][rows-1] == '0']
-    return set(doors)
+    doors = [(0, c) for c in range(cols) if maze[0][c] == 0]
+    doors += [(rows - 1, c) for c in range(cols) if maze[rows - 1][c] == 0]
+    doors += [(r, 0) for r in range(rows) if maze[r][0] == 0]
+    doors += [(r, cols - 1) for r in range(rows) if maze[r][cols - 1] == 0]
+    return sorted(set(doors))
 
 
-start, finish = search_door(maze)
-# Sample Result: start = (0,11); finish = (40,27)
+doors = search_door(maze)
+print(doors)
+# start, finish = search_door(maze)
+# print(start, finish)

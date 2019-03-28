@@ -1,5 +1,6 @@
 import turtle
 import time
+from astar import jalurAStar
 
 
 class Block(turtle.Turtle):
@@ -30,10 +31,10 @@ wn.setup(1000, 1000)
 
 
 def pos_to_sc(x, y):
-    return (-432 + (x*12), 312 - (y*12))
+    return (-432 + (x * 12), 312 - (y * 12))
 
 
-maze = open('maze.txt', 'r').read().splitlines()
+maze = open('inp.txt', 'r').read().splitlines()
 
 
 def draw_maze(maze, pathway):
@@ -51,8 +52,8 @@ def draw_maze(maze, pathway):
 
 
 # SAMPLE SOLUTION = LIST OF POS WHERE PLAYER TRAVEL
-pathway = [(0, 11), (1, 11), (2, 11), (3, 11)]
-draw_maze(maze, pathway)
+path_astar = [(y, x) for (x, y) in jalurAStar]
+draw_maze(maze, path_astar)
 
 
 while True:
