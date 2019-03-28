@@ -19,4 +19,3 @@ def bfs(start, finish):  # --> [(1,2), ...]
 
 
 path = bfs(start, finish)
-print(path)
