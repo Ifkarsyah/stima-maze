@@ -1,6 +1,5 @@
 import turtle
 import time
-from algo import maze
 
 
 class Block(turtle.Turtle):
@@ -43,6 +42,9 @@ wn.setup(1000, 1000)
 
 def pos_to_sc(x, y):
     return (-432 + (x*12), 312 - (y*12))
+
+
+maze = open('maze.txt', 'r').read().splitlines()
 
 
 def draw_maze(maze):
