@@ -15,15 +15,15 @@ class Block(Turtle):
         self.speed(0)
 
 #Route class, for drawing route
-class Route(Turtle):
-    def __init__(self, point):
-        Turtle.__init__(self)
-        self.shape("square")
-        self.color("blue")
-        self.shapesize(0.5)
-        self.penup()
-        self.x, self.y = point
-        self.speed(0)
+#class Route(Turtle):
+#    def __init__(self, point):
+#        Turtle.__init__(self)
+#        self.shape("square")
+#        self.color("blue")
+#        self.shapesize(0.5)
+#        self.penup()
+#        self.x, self.y = point
+#        self.speed(0)
 
 wn = Screen()
 wn.bgcolor("black"), wn.title("Stima Maze"), wn.setup(1000, 1000)
@@ -52,8 +52,8 @@ def draw_path(pathway):
     f.stamp()
 
     #Draw the route
-    p = Route(pathway[0])
-
+    #p = Route(pathway[0])
+    p = Block("blue")
     for i in range(1 , len(pathway)-1):
         x, y = pathway[i]
         p.goto(pos_to_sc(x, y))
@@ -62,11 +62,10 @@ def draw_path(pathway):
 def reset_path(pathway):
     #Reset route drawn
     p = Block("black")
-    for path in pathway:
-        if((path != pathway[0]) and (path != pathway[len(pathway)-1])):
-            x, y = path
-            p.goto(pos_to_sc(x, y))
-            p.stamp()
+    for i in range(1 , len(pathway)-1):
+        x, y = pathway[i]
+        p.goto(pos_to_sc(x, y))
+        p.stamp()
 
 path_astar = [(y, x) for (x, y) in jalurAStar]
 path_bfs = [(y, x) for (x, y) in bfs(start, finish)]
@@ -78,5 +77,6 @@ answer = wn.textinput("This is BFS path", "Press 'OK' to see A* path?")
 
 reset_path(path_bfs)
 draw_path(path_astar)
+print("This is A* path\n")
 
 wn.exitonclick()
