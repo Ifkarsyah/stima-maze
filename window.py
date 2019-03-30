@@ -70,13 +70,13 @@ def reset_path(pathway):
 
 path_astar = [(y, x) for (x, y) in jalurAStar]
 path_bfs = [(y, x) for (x, y) in bfs(start, finish)]
-print("THIS IS BFS PATH\n")
+print("This is BFS path\n")
 draw_maze(maze)
 draw_path(path_bfs)
-time.sleep(5)
-reset_path(path_bfs)
 
-print("THIS IS A* PATH")
+answer = wn.textinput("This is BFS path", "Press 'OK' to see A* path?")
+
+reset_path(path_bfs)
 draw_path(path_astar)
 
 wn.exitonclick()
