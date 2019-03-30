@@ -12,16 +12,22 @@ maze = read_matrix(argv[1])
 rows, cols = len(maze), len(maze[0])
 
 
-def search_door():  # hole in the border of maze --> (1,0), (9,10)
-    doors = [(0, c) for c in range(cols) if maze[0][c] == 0]
-    doors += [(rows - 1, c) for c in range(cols) if maze[rows - 1][c] == 0]
-    doors += [(r, 0) for r in range(rows) if maze[r][0] == 0]
-    doors += [(r, cols - 1) for r in range(rows) if maze[r][cols - 1] == 0]
-    return sorted(set(doors))
+#def search_door():  # hole in the border of maze --> (1,0), (9,10)
+#    doors = [(0, c) for c in range(cols) if maze[0][c] == 0]
+#    doors += [(rows - 1, c) for c in range(cols) if maze[rows - 1][c] == 0]
+#    doors += [(r, 0) for r in range(rows) if maze[r][0] == 0]
+#    doors += [(r, cols - 1) for r in range(rows) if maze[r][cols - 1] == 0]
+#    return sorted(set(doors))
 
 
-start, finish = search_door()  # hole in the border of maze --> (1,0), (9,10)
+#start, finish = search_door()  # hole in the border of maze --> (1,0), (9,10)
+print("Masukkan posisi awal :")
+inp = input().split(" ")
+start = (int(inp[0]),int(inp[1]))
 
+print("Masukkan posisi akhir :")
+inp = input().split(" ")
+finish = (int(inp[0]),int(inp[1]))
 
 def pos_add(a, b):  # pos_add((1,1),(1,2)) --> (2,3)
     return tuple(map(sum, zip(a, b)))
