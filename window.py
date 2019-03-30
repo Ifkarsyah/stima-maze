@@ -4,49 +4,22 @@ from bfs import bfs
 from utils import maze, rows, cols, start, finish
 import time
 
+#Block class, for walls
 class Block(Turtle):
-    def __init__(self):
+    def __init__(self,color1):
         Turtle.__init__(self)
         self.shape("square")
-        self.color("white")
+        self.color(color1)
         self.shapesize(0.5)
         self.penup()
         self.speed(0)
 
-class BlackBlock(Turtle):
-    def __init__(self):
-        Turtle.__init__(self)
-        self.shape("square")
-        self.color("black")
-        self.shapesize(0.5)
-        self.penup()
-        self.speed(0)
-
-class Player(Turtle):
+#Route class, for drawing route
+class Route(Turtle):
     def __init__(self, point):
         Turtle.__init__(self)
         self.shape("square")
         self.color("blue")
-        self.shapesize(0.5)
-        self.penup()
-        self.x, self.y = point
-        self.speed(0)
-
-class Start(Turtle):
-    def __init__(self, point):
-        Turtle.__init__(self)
-        self.shape("square")
-        self.color("red")
-        self.shapesize(0.5)
-        self.penup()
-        self.x, self.y = point
-        self.speed(0)
-
-class Finish(Turtle):
-    def __init__(self, point):
-        Turtle.__init__(self)
-        self.shape("square")
-        self.color("green")
         self.shapesize(0.5)
         self.penup()
         self.x, self.y = point
@@ -59,7 +32,7 @@ def pos_to_sc(x, y):
     return (-432 + (x * 12), 312 - (y * 12))
 
 def draw_maze(maze):
-    b = Block()
+    b = Block("white")
     for y in range(len(maze)):
         for x in range(len(maze[y])):
             if maze[y][x] == 1:
@@ -68,27 +41,27 @@ def draw_maze(maze):
 
 def draw_path(pathway):
     #Draw Start and Finish
-    s = Start(pathway[0])
+    s = Block("red")
     x, y = pathway[0];
     s.goto(pos_to_sc(x, y))
     s.stamp()
 
-    f = Finish(pathway[len(pathway)-1])
+    f = Block("green")
     x, y = pathway[len(pathway)-1];
     f.goto(pos_to_sc(x, y))
     f.stamp()
 
-    #Draw player movement
-    p = Player(pathway[0])
-    for path in pathway:
-        if((path != pathway[0]) and (path != pathway[len(pathway)-1])):
-            x, y = path
-            p.goto(pos_to_sc(x, y))
-            p.stamp()
+    #Draw the route
+    p = Route(pathway[0])
+
+    for i in range(1 , len(pathway)-1):
+        x, y = pathway[i]
+        p.goto(pos_to_sc(x, y))
+        p.stamp()
 
 def reset_path(pathway):
-    #Reset player movement
-    p = BlackBlock()
+    #Reset route drawn
+    p = Block("black")
     for path in pathway:
         if((path != pathway[0]) and (path != pathway[len(pathway)-1])):
             x, y = path
