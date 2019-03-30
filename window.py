@@ -2,7 +2,7 @@ from turtle import Turtle, Screen
 from astar import jalurAStar
 from bfs import bfs
 from utils import maze, rows, cols, start, finish
-
+import time
 
 class Block(Turtle):
     def __init__(self):
@@ -49,6 +49,12 @@ def draw_maze(maze, pathway):
 
 path_astar = [(y, x) for (x, y) in jalurAStar]
 path_bfs = [(y, x) for (x, y) in bfs(start, finish)]
+print("THIS IS BFS PATH\n")
 draw_maze(maze, path_bfs)
+time.sleep(5)
+
+wn.reset()
+print("THIS IS A* PATH")
+draw_maze(maze, path_astar)
 
 wn.exitonclick()
