@@ -2,52 +2,54 @@ import numpy
 from heapq import *
 from utils import maze, start, finish
 
+# Fungsi heuristik berdasarkan jarak manhattan
+def hn(P, Q):
+    return(abs(P[0] - Q[0]) + abs(P[1] - Q[1]))
 
-def heuristic(P, Q):  # Jarak Manhattan
-    return((P[0] - Q[0]) ** 2 + (P[1] - Q[1]) ** 2)
 
+def doAStar(maze, start, finish):
+    possibleMove = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
-def doAStar(array, start, goal):
-    neighbors = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    closeSet = set()
+    fromPath = {}
+    gn = {start: 0}
+    fn = {start: hn(start, finish)}
+    heapOfPath = []
 
-    close_set = set()
-    came_from = {}
-    gscore = {start: 0}
-    fscore = {start: heuristic(start, goal)}
-    oheap = []
+    heappush(heapOfPath, (fn[start], start))
 
-    heappush(oheap, (fscore[start], start))
+    while heapOfPath:
+        currentPoint = heappop(heapOfPath)[1]
+        # Cek jika sudah sampai finish
+        if(currentPoint == finish):
+            createdPath = []
+            while(currentPoint in fromPath):
+                createdPath.append(currentPoint)
+                currentPoint = fromPath[currentPoint]
+            createdPath.append(start)
+            createdPath.reverse()
+            return createdPath
 
-    while oheap:
-        current = heappop(oheap)[1]
-        if current == goal:
-            data = []
-            while current in came_from:
-                data.append(current)
-                current = came_from[current]
-            data.append(start)
-            data.reverse()
-            return data
-
-        close_set.add(current)
-        for i, j in neighbors:
-            neighbor = current[0] + i, current[1] + j
-            tentative_g_score = gscore[current] + heuristic(current, neighbor)
-            if 0 <= neighbor[0] < array.shape[0]:
-                if 0 <= neighbor[1] < array.shape[1]:
-                    if array[neighbor[0]][neighbor[1]] == 1:
-                        continue
+        # Cari jalur berikutnya ke tetangga
+        closeSet.add(currentPoint)
+        for i, j in possibleMove:
+            # Mencari gScore terendah dari neighbor currentPoint
+            neighbor = currentPoint[0] + i, currentPoint[1] + j
+            gScore = gn[currentPoint] + hn(currentPoint, neighbor)
+            if(0 <= neighbor[1] < maze.shape[1]):
+                if(0 <= neighbor[0] < maze.shape[0]):
+                    if(maze[neighbor[0]][neighbor[1]] == 1):
+                        continue # Menabrak tembok
                 else:
-                    continue  # array bound y walls
+                    continue  # Keluar dari batas x, tapi tidak y
             else:
-                continue      # array bound x walls
-            if neighbor in close_set and tentative_g_score >= gscore.get(neighbor, 0):
+                continue      # Keluar dari batas y
+            if((neighbor in closeSet) and (gScore >= gn.get(neighbor, 0))):
                 continue
-            if tentative_g_score < gscore.get(neighbor, 0) or neighbor not in [i[1]for i in oheap]:
-                came_from[neighbor] = current
-                gscore[neighbor] = tentative_g_score
-                fscore[neighbor] = tentative_g_score + heuristic(neighbor, goal)
-                heappush(oheap, (fscore[neighbor], neighbor))
-
+            if((gScore < gn.get(neighbor, 0)) or (neighbor not in [point[1] for point in heapOfPath])):
+                fromPath[neighbor] = currentPoint
+                gn[neighbor] = gScore
+                fn[neighbor] = gn[neighbor] + hn(neighbor, finish)
+                heappush(heapOfPath, (fn[neighbor], neighbor))
 
 jalurAStar = doAStar(numpy.array(maze), start, finish)
