@@ -6,7 +6,6 @@ from utils import maze, start, finish
 def hn(P, Q):
     return(abs(P[0] - Q[0]) + abs(P[1] - Q[1]))
 
-
 def doAStar(maze, start, finish):
     possibleMove = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 

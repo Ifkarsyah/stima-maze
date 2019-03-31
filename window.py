@@ -2,7 +2,7 @@ from turtle import Turtle, Screen
 from astar import jalurAStar
 from bfs import bfs
 from utils import maze, rows, cols, start, finish
-
+import time
 
 class Block(Turtle):
     def __init__(self, color1):
@@ -13,14 +13,11 @@ class Block(Turtle):
         self.penup()
         self.speed(0)
 
-
 wn = Screen()
 wn.bgcolor("black"), wn.title("Stima Maze"), wn.setup(1000, 1000)
 
-
 def pos_to_sc(x, y):
     return (-432 + (x * 12), 312 - (y * 12))
-
 
 def draw_maze(maze):
     b = Block("white")
@@ -29,7 +26,6 @@ def draw_maze(maze):
             if maze[y][x] == 1:
                 b.goto(pos_to_sc(x, y))
                 b.stamp()
-
 
 def draw_path(pathway):
     # Draw Start and Finish
@@ -60,17 +56,19 @@ def reset_path(pathway):
         p.goto(pos_to_sc(x, y))
         p.stamp()
 
-
 path_astar = [(y, x) for (x, y) in jalurAStar]
 path_bfs = [(y, x) for (x, y) in bfs(start, finish)]
 print("This is BFS path\n")
 draw_maze(maze)
 draw_path(path_bfs)
 
-answer = wn.textinput("This is BFS path", "Press 'OK' to see A* path?")
+print("Please wait 4 sec...")
+time.sleep(4)
+answer = wn.textinput("This is BFS path", "Press 'OK' to see A* path")
 
 reset_path(path_bfs)
 draw_path(path_astar)
 print("This is A* path\n")
 
+answer = wn.textinput("This is A* path", "Press 'OK' then Click anywhere to quit")
 wn.exitonclick()

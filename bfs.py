@@ -1,7 +1,6 @@
 from utils import maze, neighbors
 from collections import deque
 
-
 def bfs(start, finish):  # --> [(1,2), ...]
     visited = [row[:] for row in maze]
     q = deque([(start, [start])])
